@@ -1,7 +1,4 @@
 # perfect-pet-pal
-<html><head><style>body {
-   color: black;
-}
 </style></head><body><p><strong>Submitted by:</strong> Wayne Campbell <br>
 <strong>Group Members:</strong> AJ Baldomero, Wayne Campbell <br>
 <strong>App Description:</strong> Allow users to find their ideal pet<br>
