@@ -1,5 +1,5 @@
 # perfect-pet-pal
-</style></head><body><p><strong>Submitted by:</strong> Wayne Campbell <br>
+<body><p><strong>Submitted by:</strong> Wayne Campbell <br>
 <strong>Group Members:</strong> AJ Baldomero, Wayne Campbell <br>
 <strong>App Description:</strong> Allow users to find their ideal pet<br>
 <strong>YouTube Video Link:</strong> <br>
