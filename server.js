@@ -14,6 +14,14 @@ const db = mongoose.connection;
 db.on('error',(console)=> console.error(error));
 db.once('open', () => console.log('Connected'));
 
+//our API return JSON, so we need json middleware
+app.use(express.json());
+
+//bring in the routes from the routes folder
+const dogDetailsRouter = require('./routes/dogDetails');
+
+//use the routes
+app.use('/dogDetails', dogDetailsRouter);
+
 //show that the server started
 app.listen(3000, () => console.log('Server Started on Port 3000'));
-app.use(express.json());
