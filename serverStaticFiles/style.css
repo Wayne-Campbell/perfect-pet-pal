@@ -1,0 +1,21 @@
+h1 {
+    text-align: center;
+    color: white;
+    border: solid;
+    border-color: black;
+    border-width: 0.2rem;
+    background-color: darkblue;
+    border-radius: 0.5rem;
+}
+
+#search {
+    background-color: darkgrey;
+    border: solid;
+    border-color: black;
+    border-width: 0.2rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+
+
