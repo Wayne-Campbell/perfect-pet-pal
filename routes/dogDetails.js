@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const path = require("path");
+
+require("dotenv").config({
+   path: path.resolve(__dirname, "credentialsDontPost/.env"),
+});
+const apiKey = process.env.API_KEY;
+
+
 
 router.get('/', (req, res) => {
     res.render("searchPage");
@@ -18,14 +26,19 @@ router.post("/searchResults", async (req, res) => {
         const response = await fetch(url,
             {
                 headers: {
-                    "x-api-key": "live_QRExPu6aFXb99bJxlnfyaOWGFJJGW144jJyJPkNYPn6v664RuKIGp1r7qq9ORcJI"
+                    "x-api-key": apiKey
                 }
             }
         );
         const json = await response.json();
         let breeds = `<table>
             <thead>
-                <tr><th>Name</th><th>Life Span</th><th>Temperament</th><th>Save As Favorite?</th></tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Life Span</th>
+                    <th>Temperament</th>
+                    <th>Save As Favorite?</th>
+                </tr>
             </thead>
             <tbody>`;
         
@@ -65,7 +78,7 @@ router.post("/saveBreed", async (req, res) => {
         const response = await fetch(url,
             {
                 headers: {
-                    "x-api-key": "live_QRExPu6aFXb99bJxlnfyaOWGFJJGW144jJyJPkNYPn6v664RuKIGp1r7qq9ORcJI"
+                    "x-api-key": apiKey
                 }
             }
         );
