@@ -13,11 +13,9 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 
 /* uncomment for local testing */
-require("dotenv").config({
-   path: path.resolve(__dirname, "credentialsDontPost/.env"),
-});
-
-
+// require("dotenv").config({
+//    path: path.resolve(__dirname, "credentialsDontPost/.env"),
+// });
 
 //open the connection to the database, check for errors or success
 // const db = mongoose.connection;
@@ -35,23 +33,13 @@ app.use(express.static(publicPath));
 
 //bring in the routes from the routes folder
 const dogDetailsRouter = require('./routes/dogDetails');
+const favoritesRouter = require('./routes/favorites');
 
 //use the routes
 app.use('/dogDetails', dogDetailsRouter);
-
-
-/* Adding Dog Schema */
-const Dog = require("./model/Dog.js");
+app.use('/favorites', favoritesRouter);
 
 app.use("/", async (req, res) => {
-    try {
-        await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-
-        mongoose.disconnect();
-    } catch (e) {
-        console.error(e);
-    }
-
     res.render("homePage");
 });
 

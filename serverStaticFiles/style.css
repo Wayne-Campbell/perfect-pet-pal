@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+body {
+    font-family: Nunito;
+}
+
 h1 {
     text-align: center;
     color: white;
@@ -8,8 +14,12 @@ h1 {
     border-radius: 0.5rem;
 }
 
+html {
+    background-color: lightgray;
+}
+
 #search {
-    background-color: darkgrey;
+    background-color:slategray;
     border: solid;
     border-color: black;
     border-width: 0.2rem;
