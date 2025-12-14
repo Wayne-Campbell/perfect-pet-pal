@@ -1,7 +1,3 @@
-// require("dotenv").config({
-//    path: path.resolve(__dirname, "credentialsDontPost/.env"),
-// });
-
 // const { error } = require('console');
 const express = require('express');
 const app = express();
@@ -16,18 +12,11 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 
-//connect to the mongo db database
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true});
-const db = mongoose.connection;
-// (async () => {
-//     try {
-//         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-//         console.log("Hello");
-//         mongoose.disconnect();
-//     } catch(err) {
-//         console.error(err);
-//     }
-// })();
+/* uncomment for local testing */
+require("dotenv").config({
+   path: path.resolve(__dirname, "credentialsDontPost/.env"),
+});
+
 
 
 //open the connection to the database, check for errors or success
@@ -50,8 +39,20 @@ const dogDetailsRouter = require('./routes/dogDetails');
 //use the routes
 app.use('/dogDetails', dogDetailsRouter);
 
-app.use("/", (req, res) => {
-    res.send("/ in server.js");
+
+/* Adding Dog Schema */
+const Dog = require("./model/Dog.js");
+
+app.use("/", async (req, res) => {
+    try {
+        await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+
+        mongoose.disconnect();
+    } catch (e) {
+        console.error(e);
+    }
+
+    res.render("homePage");
 });
 
 

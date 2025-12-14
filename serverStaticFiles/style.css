@@ -17,5 +17,22 @@ h1 {
     padding: 0.5rem;
 }
 
+table {
+    justify-self: center;
+    border: black;
+    border-style: solid;
+    border-collapse: separate;
+    border-width: .25rem;
+}
+
+th, td {
+    border: darkblue;
+    border-style: solid;
+    padding: .2rem
+}
+
+td[type="button"] {
+    text-align: center;
+}
 
 
