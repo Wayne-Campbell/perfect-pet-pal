@@ -1,7 +1,6 @@
 // const { error } = require('console');
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const path = require("path");
 const portNumber = 3000;
 
@@ -13,9 +12,9 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 
 /* uncomment for local testing */
-// require("dotenv").config({
-//    path: path.resolve(__dirname, "credentialsDontPost/.env"),
-// });
+require("dotenv").config({
+   path: path.resolve(__dirname, "credentialsDontPost/.env"),
+});
 
 //open the connection to the database, check for errors or success
 // const db = mongoose.connection;

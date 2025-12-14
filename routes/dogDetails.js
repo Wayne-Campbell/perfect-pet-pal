@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const path = require("path");
 
-require("dotenv").config({
-   path: path.resolve(__dirname, "credentialsDontPost/.env"),
-});
 const apiKey = process.env.API_KEY;
 
-
+function addLinks() {
+    return  `<hr><a href="/">Return Home</a><br>
+            <a href="/dogDetails">Perfect Pet Search</a><br>
+            <a href="/favorites">Favorites</a>`;
+}
 
 router.get('/', (req, res) => {
     res.render("searchPage");
@@ -50,12 +50,11 @@ router.post("/searchResults", async (req, res) => {
 
             breeds += 
             `<tr>
-                <form action="http://localhost:3000/dogDetails/saveBreed?id=${id}" method="post">
+                <form action="/dogDetails/saveBreed?id=${id}" method="post">
                     <td>${name}</td>
                     <td>${life_span}</td>
                     <td>${temperament}</td>
-                    <td type="button">
-                    <button type="submit">Save</button></td>
+                    <td type="button"><button type="submit">Save</button></td>
                 </form>
             </tr>`;
         });
@@ -71,7 +70,9 @@ router.post("/searchResults", async (req, res) => {
 /* When Save is clicked, it will save the specific breed to MongoDB */
 router.post("/saveBreed", async (req, res) => {
     const id = req.query.id;
-    console.log(id);
+
+    /* Adding links to bottom of page */
+    const links = addLinks();
 
     const url = `https://api.thedogapi.com/v1/breeds/${id}`;
     try {
@@ -83,25 +84,27 @@ router.post("/saveBreed", async (req, res) => {
             }
         );
         const breed = await response.json();
-        console.log(breed);
 
         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-
-        await Dog.create({
-            id: id,
-            name: breed["name"],
-            life_span: breed["life_span"],
-            temperament: breed["temperament"]
-        });
-
-        const dogs = await Dog.find({});
-        console.log("Dogs\n", dogs);
+        
+        const filter = { name: breed["name"] };
+        const result = await Dog.findOne(filter);
+        if (!result) {
+            await Dog.create({
+                id: id,
+                name: breed["name"],
+                life_span: breed["life_span"],
+                temperament: breed["temperament"]
+            });
+        } else {
+            res.send(`<strong>Error:</strong> Breed Already Saved to Favorites<br> ${links}`);
+        }
 
         mongoose.disconnect();
-        res.send(`<strong>${breed["name"]}</strong> saved to favorites`);
+        res.send(`<strong>${breed["name"]}</strong> saved to favorites<br> ${links}`);
     } catch(error) {
         console.error("Error: " + error);
-        res.send("Error Saving to Favorites");
+        res.send(`<strong>Error Saving to Favorites</strong><br> ${links}`);
     }
 });
 
