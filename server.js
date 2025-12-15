@@ -38,15 +38,15 @@ const favoritesRouter = require('./routes/favorites');
 app.use('/dogDetails', dogDetailsRouter);
 app.use('/favorites', favoritesRouter);
 
-app.use("/", async (req, res) => {
-    res.render("homePage");
+//serve the home page
+app.get('/', (req, res) => {
+    res.render('homePage');
 });
 
-
-//handle 404 errors
-app.all('*', (req, res) => {
-  res.status(404).send('<h1>404! Page not found</h1>');
-})
+//  404 errors by rendering the `error404` view (if present).
+app.use((req, res, next) => {
+  res.status(404).render('error404');
+});
 
 //show that the server started
 app.listen(portNumber, () => console.log(`Server started on: http://localhost:${portNumber}/`));
