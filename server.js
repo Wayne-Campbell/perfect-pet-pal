@@ -43,6 +43,11 @@ app.use("/", async (req, res) => {
 });
 
 
+//handle 404 errors
+app.all('*', (req, res) => {
+  res.status(404).send('<h1>404! Page not found</h1>');
+})
+
 //show that the server started
 app.listen(portNumber, () => console.log(`Server started on: http://localhost:${portNumber}/`));
 
